@@ -36,7 +36,7 @@ class Guess(Controller):
 
     def post(self):
         name = self.get_cookie('name')
-        guess_number = self.get_argument('number')
+        guess_number = int(self.get_argument('number'))
         if not len(gamesrv.participants) == self.max_participants:
             gamesrv.send_message('The number of participants is not enough.')
             return None
@@ -48,8 +48,10 @@ class Guess(Controller):
                                      (name, str(guess_number)))
                 return None
             else:
-                max_num, min_num = gamesrv.get_range()
+                min_num, max_num = gamesrv.get_range()
                 gamesrv.send_message("%s guess number: %s,"
                                      "now the range of" "number is [%s, %s]" %
                                      (name, guess_number, min_num, max_num))
                 return None
+        else:
+            gamesrv.send_message('Now is %s\'s turn' % gamesrv.get_turn())
