@@ -12,7 +12,7 @@ from develop_tools.search import search
 
 from guess.app import create_app
 from guess.util import config_from_file
-from guess.extensions import database
+# from guess.extensions import database
 
 
 cmds = ['-c', 'clean', '-p', 'pep8', '-s', 'search', '-ss', 'ssearch', 
@@ -22,8 +22,8 @@ cmds = ['-c', 'clean', '-p', 'pep8', '-s', 'search', '-ss', 'ssearch',
 def init_app(conf="develop.conf"):
 
     def print_info():
-        print("-i/initdb -- create tables in database")
-        print("-d/dropdb -- drop all tables in database")
+        # print("-i/initdb -- create tables in database")
+        # print("-d/dropdb -- drop all tables in database")
         print("-c/clean -- clean *.pyc")
         print("-p/pep8 -- check pep8")
         print("-t/test -- run nosetests")
@@ -35,18 +35,18 @@ def init_app(conf="develop.conf"):
     if length <= 1 and not cmd in cmds:
         print_info()
 
-    if length > 1 and (cmd == 'initdb' or cmd == '-i'):
-        app = create_app(conf)
-        database.create_tables()
-        print("Initialize tables, Complete!")
+    # if length > 1 and (cmd == 'initdb' or cmd == '-i'):
+    #     app = create_app(conf)
+    #     database.create_tables()
+    #     print("Initialize tables, Complete!")
 
-    if length > 1 and (cmd == 'dropdb' or cmd == '-d'):
-        app = create_app(conf)
-        database.drop_tables()
-        print("Drop tables, Complete!")
+    # if length > 1 and (cmd == 'dropdb' or cmd == '-d'):
+    #     app = create_app(conf)
+    #     database.drop_tables()
+    #     print("Drop tables, Complete!")
 
     if length > 1 and (cmd == 'clean' or cmd == '-c'):
-        clean("./heroku_app")
+        clean("./guess")
         clean("./tests")
         print("Clean files, Complete!")
 

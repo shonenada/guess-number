@@ -35,3 +35,6 @@ class Controller(tornado.web.RequestHandler):
 
     def delete(self):
         raise tornado.web.HTTPError(405)
+
+    def json(self, obj):
+        return json_encode(obj)

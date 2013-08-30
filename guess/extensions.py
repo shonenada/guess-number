@@ -1,8 +1,4 @@
-from sqlalchemy.orm import sessionmaker
-from sqlalchemy.ext.declarative import declarative_base
-
-from guess.database import Database
+from guess.game.server import GameServer
 
 
-# Database
-database = Database()
+gamesrv = GameServer()
