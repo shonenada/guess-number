@@ -2,12 +2,13 @@
 <html>
     <head>
         <title>{{ web_title }}</title>
-         {% module js_files(['jquery-1.10.2.min.js', 'message.js']) %}
-         {% module css_files(['bootstrap.min.css']) %}
+         {% module static_url('components/jquery/dist/jquery.min.js') %}
+         {% module static_url('scripts/message.js') %}
+         {% module static_url('components/bootstrap/dist/css/bootstrap.min.css') %}
+         {% module static_url('styles/layout.css') %}
     </head>
     <body>
         <div id="message">
-            
         </div>
         <div>
             <form id='message-form'>
