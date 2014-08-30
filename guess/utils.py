@@ -1,3 +1,6 @@
+import json
+from datetime import date, datetime
+
 from tornado.util import exec_in
 from tornado.options import options, define
 from tornado.web import RequestHandler
@@ -22,3 +25,16 @@ def js_html(path):
     html = ('<script language="javascript" '
             'type="text/javascript" src="%s"></script>' % path)
     return html
+
+
+def __default(obj):
+    if isinstance(obj, datetime):
+        return obj.strftime("%Y-%m-%d %H:%M:%S")
+    elif isinstance(obj, date):
+        return obj.strftime("%Y-%m-%d")
+    else:
+        raise TypeError("%r is not Json serializable" % obj)
+
+
+def json_encode(obj):
+    return json.dumps(obj, default=__default)

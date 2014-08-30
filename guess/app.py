@@ -3,9 +3,10 @@
 
 import os.path
 
-from guess.modules import modules
-from guess.util import config_from_file
 from guess.base import Application
+from guess.utils import config_from_file
+from guess.views.master import master_view
+from guess.views.game import game_view
 
 
 def app_root():
@@ -21,10 +22,8 @@ def create_app(config_file=None):
     if config_file:
         config_from_file(config_file)
 
-    # database.bind_app(app)
-
-    app.init_modules(modules)
-    app.load_routes()
+    app.register_module(master_view)
+    app.register_module(game_view)
 
     app.deploy()
 

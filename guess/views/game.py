@@ -1,19 +1,19 @@
 from tornado.web import asynchronous
 from tornado.options import options
 
-from guess.base import route
-from guess.controller import Controller
-from guess.extensions import gamesrv
+from guess.base import ModuleView, Controller
+from guess.game_server import gamesrv
 
 
+game_view = ModuleView('game')
 
 
-@route('/guess')
+@game_view.route('/guess')
 class Guess(Controller):
 
     def prepare(self):
         self.max_participants = int(options.max_participants)
-        name = self.get_cookie('name', default=None)
+        name = self.get_cookie('username', default=None)
         if name is None:
             self.redirect('/', status=403)
             self.finish()
@@ -35,7 +35,7 @@ class Guess(Controller):
                 pass
 
     def post(self):
-        name = self.get_cookie('name')
+        name = self.get_cookie('username')
         guess_number = int(self.get_argument('number'))
         if not len(gamesrv.participants) == self.max_participants:
             gamesrv.send_message('The number of participants is not enough.')

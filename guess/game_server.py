@@ -64,3 +64,6 @@ class GameServer(object):
             [call(message) for call in self.observers]
         finally:
             self.observers = []
+
+
+gamesrv = GameServer()

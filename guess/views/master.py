@@ -1,22 +1,23 @@
 from tornado.options import options
 
-from guess.base import route
-from guess.controller import Controller
-from guess.extensions import gamesrv
+from guess.base import ModuleView, Controller
+from guess.game_server import gamesrv
 
 
-@route("/")
+master_view = ModuleView('master')
+
+
+@master_view.route("/")
 class Home(Controller):
     def get(self):
         web_title = 'Guess'
         self.render("index.html", web_title=web_title)
 
 
-@route('/main')
+@master_view.route('/main')
 class Main(Controller):
-
     def get(self):
-        name = self.get_cookie('name', default=None)
+        name = self.get_cookie('username', default=None)
         if name is None:
             self.redirect('/')
         participants = gamesrv.participants
@@ -27,9 +28,9 @@ class Main(Controller):
         self.render('guess.html', web_title=web_title)
 
     def post(self):
-        name = self.get_argument('name', default=None)
+        name = self.get_argument('username', default=None)
         if name:
-            self.set_cookie('name', name)
+            self.set_cookie('username', name)
             participants = gamesrv.participants
             max_participants = int(options.max_participants)
             if (name not in participants and
@@ -40,7 +41,7 @@ class Main(Controller):
             self.write("Please input your name")
 
 
-@route('/show')
+@master_view.route('/show')
 class Show(Controller):
     def get(self):
         participants = gamesrv.participants

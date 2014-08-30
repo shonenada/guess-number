@@ -1,6 +1,6 @@
 from tornado.web import UIModule
 
-from guess.util import css_html, js_html
+from guess.utils import css_html, js_html
 
 
 class StaticMod(UIModule):
