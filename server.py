@@ -5,7 +5,7 @@ from tornado.options import options, define
 from guess.app import create_app
 
 
-define("port", default=5000, help="run on the given port", type=int)
+define("port", default=8000, help="run on the given port", type=int)
 
 
 def run_app():
