@@ -1,15 +1,24 @@
 $(function(){
-	var contaier = $('#message');
+	var contaier = $('.message-box');
 	var show_message = function(msg, msg_type) {
-		if (typeof msg_type == 'undefined') msg_type = 'info';
+		if (typeof msg_type == 'undefined') msg_type = 'danger';
+
 		msg = $('<div/>').text(msg).html();
 		msg = msg.replace("\n", "<br />");
 		
-		var template = $("<div><\/div>")
-			.addClass('alert-message')
-			.addClass('block-message')
-			.addClass(msg_type);
-		contaier.prepend(template.html(msg));
+        var close_button = $('<button type="button" class="close" data-dismiss="alert"></button>')
+            .append($('<span aria-hidden="true">&times;</span>'))
+            .append($('<span class="sr-only">Close</span>'));
+
+		var template = $('<div role="alert"><\/div>')
+            .addClass('alert')
+			.addClass('alert-' + msg_type)
+			.addClass('alert-dismissible')
+		contaier.prepend(template.html(msg).prepend(close_button));
+
+        close_button.click(function(){
+            template.fadeOut();
+        });
 	};
 	var update = function() {
 		$.ajax({
@@ -18,15 +27,14 @@ $(function(){
 			dataType: 'json',
 			success: function(r) {
 				try {
-					show_message(r.msg, 'info');
+					show_message(r.msg, 'danger');
 					update();
 				} catch (e) {
-					show_message('发生错误：' + e, 'alert');
+					show_message('Server Error' + e, 'alert');
 				}
 			},
 			error: function(jqxhr, status, thrown) {
 				if (status == 'abort' || status == 'timeout' || jqxhr.status == 0 || status.toString() == 'parser') return;
-				// show_message('与服务器通讯发生错误：' + status.toString(), ' error');
 			}
 		});
 	};
@@ -39,7 +47,6 @@ $(function(){
 			data: $(this).serialize(),
 			success: function() {
 				update();
-				$("#number").val("");
 			},
 			error: function(jqxhr, status) {
 				// if (status == 'abort') return;
@@ -48,6 +55,7 @@ $(function(){
 				// }
 			}
 		});
+		$("#number").val("");
 		return false;
 	});
 });

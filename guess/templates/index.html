@@ -1,13 +1,10 @@
 {% extends 'base.html' %}
-{% block htmlhead %}
-{% module static_url('styles/signin.css') %}
-{% end %}
 
 {% block body %}
 <div>
-    <form class="form-signin" role="form" action="/main" method="post">
+    <form class="form" role="form" action="/main" method="post">
         {% module xsrf_form_html() %}
-        <h2 class="form-singin-headding">Please sign in</h2>
+        <h2 class="form-heading">Please sign in</h2>
         <input name="username" type="text" class="form-control" placeholder="Your name" required>
         <br />
         <button class="btn btn-lg btn-primary btn-block" type="submit">SignIn</button>

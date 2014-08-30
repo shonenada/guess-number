@@ -3,9 +3,11 @@
     <head>
         <meta charset="utf-8">
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
-        <meta name="viewport" content="width=device-widht, initial-scale=1">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
         <title>{{ web_title }}</title>
         {% module static_url('components/bootstrap/dist/css/bootstrap.min.css') %}
+        {% module static_url('components/jquery/dist/jquery.min.js') %}
+        {% module static_url('styles/layout.css') %}
         {% block htmlhead %}
         {% end %}
     </head>
