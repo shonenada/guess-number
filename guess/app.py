@@ -6,7 +6,6 @@ import os.path
 from guess.modules import modules
 from guess.util import config_from_file
 from guess.base import Application
-# from guess.extensions import database
 
 
 def app_root():

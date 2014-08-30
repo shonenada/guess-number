@@ -42,6 +42,8 @@ class Guess(Controller):
             return None
         if name == gamesrv.now_turn():
             correct = gamesrv.guess(guess_number)
+            if correct is None:
+                return None
             if correct:
                 gamesrv.send_message("%s guess the number: %s, "
                                      "and it is correct!! Game Over!" %
@@ -50,8 +52,8 @@ class Guess(Controller):
             else:
                 min_num, max_num = gamesrv.get_range()
                 gamesrv.send_message("%s guess number: %s,"
-                                     "now the range of" "number is [%s, %s]" %
+                                     "now the range of" "number is (%s, %s)" %
                                      (name, guess_number, min_num, max_num))
                 return None
         else:
-            gamesrv.send_message('Now is %s\'s turn' % gamesrv.get_turn())
+            gamesrv.send_message('Now is %s\'s turn' % gamesrv.now_turn())

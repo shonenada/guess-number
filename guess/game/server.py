@@ -26,16 +26,21 @@ class GameServer(object):
             self.max = int(options.max_number)
             self.min = int(options.min_number)
             self.number = int(random.uniform(self.min, self.max))
-            print self.number
+        print self.number
+        return self.number
 
     def guess(self, num):
         if self.number == 0:
             self.start()
+        if not num in range(self.min, self.max):
+            self.send_message('Please input the number range of (%s, %s)' %
+                              (self.min, self.max))
+            return None
         correct = (num == self.number)
         if correct:
             self.number, self.turn, self.max, self.min = (0, 0, 0, 0)
         else:
-            self.turn = (self.turn + 1) if self.turn >= len(self.participants) else 0
+            self.turn = (self.turn + 1) if self.turn < len(self.participants) - 1 else 0
             if num > self.number:
                 self.max = num
             else:
