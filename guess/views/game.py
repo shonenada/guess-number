@@ -48,11 +48,12 @@ class Guess(Controller):
                 gamesrv.send_message("%s guess the number: %s, "
                                      "and it is correct!! Game Over!" %
                                      (name, str(guess_number)))
+                gamesrc.start()
                 return None
             else:
                 min_num, max_num = gamesrv.get_range()
                 gamesrv.send_message("%s guess number: %s,"
-                                     "now the range of" "number is (%s, %s)" %
+                                     "now the range of number is (%s, %s)" %
                                      (name, guess_number, min_num, max_num))
                 return None
         else:

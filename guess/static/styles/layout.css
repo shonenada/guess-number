@@ -9,6 +9,14 @@ body {
     margin: 0 auto;
 }
 
+.topbar {
+    width: 600px;
+    margin: 0 auto;
+    text-align: center;
+    font-size: 36px; 
+    color: #777;
+}
+
 .form {
     max-width: 330px;
     padding: 15px;

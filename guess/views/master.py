@@ -17,25 +17,25 @@ class Home(Controller):
 @master_view.route('/main')
 class Main(Controller):
     def get(self):
-        name = self.get_cookie('username', default=None)
-        if name is None:
+        username = self.get_cookie('username', default=None)
+        if username is None:
             self.redirect('/')
         participants = gamesrv.participants
         max_participants = int(options.max_participants)
         if len(participants) == max_participants:
                 gamesrv.start()
         web_title = 'Guess'
-        self.render('guess.html', web_title=web_title)
+        self.render('guess.html', web_title=web_title, username=username)
 
     def post(self):
-        name = self.get_argument('username', default=None)
-        if name:
-            self.set_cookie('username', name)
+        username = self.get_argument('username', default=None)
+        if username:
+            self.set_cookie('username', username)
             participants = gamesrv.participants
             max_participants = int(options.max_participants)
-            if (name not in participants and
+            if (username not in participants and
                 len(participants) < max_participants):
-                gamesrv.add_participant(name)
+                gamesrv.add_participant(username)
             self.redirect('/main')
         else:
             self.write("Please input your name")

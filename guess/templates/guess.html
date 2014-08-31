@@ -6,6 +6,7 @@
 
 {% block body %}
 <div>
+    <div class="topbar">Welcome, {{ username }}</div>
     <form role="form" id='message-form' class="form">
         {% module xsrf_form_html() %}
         <h2 class="form-heading">Guess Number</h2>
